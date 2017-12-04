@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become_user: sudo
+  tasks:
+    - name: Install zsh
+      apt: name=zsh state=present
+
+    - name: Download Oh My ZSH install script
+      get_url: url=https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh dest=/tmp/zsh-installer.sh
+
+    - name: Install Oh My ZSH
+      script: /tmp/zsh-installer.sh
+
+    - name: Change shell to zsh
+      shell: "chsh -s $(which zsh)"
+
+    - name: Symlink zsh custom config
+      file:
+        src: "{{ playbook_dir }}/config"
+        dest: "{{ ansible_env.HOME }}/zsh_config"
+        state: link
+
+    - name: Remove .zshrc
+      file:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        state: absent
+
+    - name: Symlink .zshrc config
+      file:
+        src: "{{ playbook_dir }}/config/.zshrc"
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        state: link

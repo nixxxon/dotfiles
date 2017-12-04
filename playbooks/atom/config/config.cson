@@ -1,0 +1,75 @@
+"*":
+  core:
+    disabledPackages: [
+      "fonts"
+    ]
+    excludeVcsIgnoredPaths: false
+    fileEncoding: "windows1252"
+    ignoredNames: [
+      ".git"
+      ".hg"
+      ".svn"
+      ".DS_Store"
+      "._*"
+      "Thumbs.db"
+      "ci/build/*"
+    ]
+    packagesWithKeymapsDisabled: [
+      "emmet"
+      "sort-lines"
+      "xml-formatter"
+      "compare-files"
+    ]
+    telemetryConsent: "limited"
+    titleBar: "custom"
+  docblockr:
+    short_primitives: true
+  editor:
+    fontSize: 13
+    invisibles:
+      cr: " "
+      eol: " "
+      tab: " "
+    scrollPastEnd: false
+    showIndentGuide: true
+    showInvisibles: true
+    tabLength: 4
+  "exception-reporting":
+    userId: "609849ec-65fb-8830-c0ae-843b285ca3e9"
+  fonts:
+    fontFamily: "PT Mono"
+  gist: {}
+  "gist-it":
+    newGistsDefaultToPrivate: true
+    openAfterCreate: true
+  "git-diff": {}
+  linter: {}
+  "linter-php": {}
+  "linter-ui-default":
+    panelHeight: 69
+    showPanel: true
+  "markdown-preview":
+    useGitHubStyle: true
+  "pristine-ui":
+    hideDockButtons: true
+    tabSizing: "Minimum"
+  "quick-highlight":
+    countDisplayPosition: "Right"
+  "toggle-quotes": {}
+  welcome:
+    showOnStartup: false
+  whitespace: {}
+".blade.html.php.text":
+  editor:
+    commentEnd: " --}}"
+    commentStart: "{{-- "
+    tabLength: 4
+".editorconfig.source":
+  editor:
+    tabLength: 4
+".feature.source":
+  editor:
+    tabLength: 4
+".ini.source":
+  editor:
+    tabLength: 4

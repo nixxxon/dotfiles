@@ -1,0 +1,56 @@
+---
+- hosts: all
+  become_user: sudo
+  tasks:
+    - name: Add Atom repository
+      apt_repository: repo='ppa:webupd8team/atom'
+
+    - name: Install Atom
+      apt: pkg=atom state=installed
+
+    - name: Remove Atom configuration
+      file:
+        path: "{{ ansible_env.HOME }}/.atom/config.cson"
+        state: absent
+
+    - name: Symlink Atom configuration
+      file:
+        src: "{{ playbook_dir }}/config/config.cson"
+        dest: "{{ ansible_env.HOME }}/.atom/config.cson"
+        state: link
+
+    - name: Remove Atom snippets
+      file:
+        path: "{{ ansible_env.HOME }}/.atom/snippets.cson"
+        state: absent
+
+    - name: Symlink Atom snippets
+      file:
+        src: "{{ playbook_dir }}/config/snippets.cson"
+        dest: "{{ ansible_env.HOME }}/.atom/snippets.cson"
+        state: link
+
+    - name: Remove Atom keymap
+      file:
+        path: "{{ ansible_env.HOME }}/.atom/keymap.cson"
+        state: absent
+
+    - name: Symlink Atom snippets
+      file:
+        src: "{{ playbook_dir }}/config/keymap.cson"
+        dest: "{{ ansible_env.HOME }}/.atom/keymap.cson"
+        state: link
+
+    - name: Remove Atom styles
+      file:
+        path: "{{ ansible_env.HOME }}/.atom/styles.less"
+        state: absent
+
+    - name: Symlink Atom styles
+      file:
+        src: "{{ playbook_dir }}/config/styles.less"
+        dest: "{{ ansible_env.HOME }}/.atom/styles.less"
+        state: link
+
+    - name: Install Atom packages
+      shell: "apm install --packages-file {{ playbook_dir }}/config/packages.list"
