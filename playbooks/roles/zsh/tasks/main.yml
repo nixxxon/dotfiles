@@ -28,6 +28,11 @@
   script: /tmp/zsh-installer.sh
   when: oh_my_zsh.stat.exists == False
 
+- name: Remove Xfce ZSH custom configuration
+  file:
+    path: "{{ ansible_env.HOME }}/zsh_config"
+    state: absent
+
 - name: Symlink ZSH custom configuration
   file:
     src: "{{ role_path }}/files"
