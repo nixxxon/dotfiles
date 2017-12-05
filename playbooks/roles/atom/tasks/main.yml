@@ -1,0 +1,30 @@
+- name: Add Atom repository
+  apt_repository: repo='ppa:webupd8team/atom'
+
+- name: Install Atom
+  apt: pkg=atom state=installed
+
+- name: Remove Atom configuration files
+  file:
+    path: "{{ atom_configuration_path }}/{{ item }}"
+    state: absent
+  with_items: "{{ atom_configuration_files }}"
+
+- name: Symlink Atom configuration files
+  file:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "{{ atom_configuration_path }}/{{ item }}"
+    state: link
+  with_items: "{{ atom_configuration_files }}"
+
+- name: Check if packages has changed
+  shell: "diff <(apm list --installed --bare | sed '$d') <(cat {{ role_path|quote }}/files/packages.list)"
+  args:
+    executable: /bin/bash
+  register: packages_changed
+  ignore_errors: True
+  changed_when: packages_changed.stdout != ""
+
+- name: Install Atom packages
+  shell: "apm install --packages-file {{ role_path }}/files/packages.list"
+  when: packages_changed.stdout != ""

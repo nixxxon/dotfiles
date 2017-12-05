@@ -1,8 +1,0 @@
----
-- hosts: all
-  tasks:
-   - name: Remove Nano
-     apt: name=nano state=absent
-
-   - name: Install Vim
-     apt: name=vim state=present

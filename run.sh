@@ -8,4 +8,4 @@ if [ "$(dpkg -l "ansible" &> /dev/null)" != "" ]; then
 fi
 
 echo "Applying Ansible playbooks"
-sudo ansible-playbook -i "localhost," -c local ./playbooks/main.playbook.yml
+sudo ansible-playbook -i "localhost," -c local ./playbooks/home.playbook.yml

@@ -1,0 +1,46 @@
+- name: Check if ZSH has been installed
+  shell: "diff <(echo $SHELL) <(which zsh)"
+  args:
+    executable: /bin/bash
+  register: zsh_installed
+  ignore_errors: True
+  changed_when: zsh_installed.stdout != ""
+
+- name: Install ZSH
+  apt: name=zsh state=present
+  when: zsh_installed.stdout != ""
+
+- name: Change shell to ZSH
+  shell: "chsh -s $(which zsh)"
+  when: zsh_installed.stdout != ""
+
+- name: Check if Oh My ZSH is installed
+  stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+  register: oh_my_zsh
+  changed_when: oh_my_zsh.stat.exists == False
+
+- name: Download Oh My ZSH install script
+  get_url: url=https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh dest=/tmp/zsh-installer.sh
+  when: oh_my_zsh.stat.exists == False
+
+- name: Install Oh My ZSH
+  script: /tmp/zsh-installer.sh
+  when: oh_my_zsh.stat.exists == False
+
+- name: Symlink ZSH custom configuration
+  file:
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_env.HOME }}/zsh_config"
+    state: link
+
+- name: Remove .zshrc configuration
+  file:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    state: absent
+
+- name: Symlink .zshrc configuration
+  file:
+    src: "{{ role_path }}/files/.zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    state: link

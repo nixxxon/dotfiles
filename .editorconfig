@@ -1,0 +1,29 @@
+# top-most .editorconfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+max_line_length = 80
+trim_trailing_whitespace = true
+
+[*.sh]
+indent_style = tab
+
+[*.zsh]
+indent_style = tab
+
+[*.{py,rst,txt}]
+indent_style = space
+trim_trailing_whitespace = true
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+
+[*.yml]
+indent_style = space
+trim_trailing_whitespace = true
+indent_size = 2

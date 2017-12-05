@@ -1,0 +1,7 @@
+atom_configuration_files:
+  - config.cson
+  - snippets.cson
+  - keymap.cson
+  - styles.less
+
+atom_configuration_path: "{{ ansible_env.HOME }}/.atom"

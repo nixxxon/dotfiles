@@ -1,0 +1,12 @@
+- name: Remove Xfce configuration files
+  file:
+    path: "{{ xfce_configuration_path }}/{{ item }}"
+    state: absent
+  with_items: "{{ xfce_configuration_files }}"
+
+- name: Symlink Xfce configuration files
+  file:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "{{ xfce_configuration_path }}/{{ item }}"
+    state: link
+  with_items: "{{ xfce_configuration_files }}"

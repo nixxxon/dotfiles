@@ -1,0 +1,13 @@
+- name: Install Git
+  apt: name=git-core state=present
+
+- name: Remove Git config
+  file:
+    path: "{{ ansible_env.HOME }}/.gitconfig"
+    state: absent
+
+- name: Symlink Git config
+  file:
+    src: "{{ role_path }}/files/.gitconfig"
+    dest: "{{ ansible_env.HOME }}/.gitconfig"
+    state: link

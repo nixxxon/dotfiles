@@ -1,0 +1,10 @@
+- hosts: all
+  roles:
+    - xfce_terminal
+    - xfce
+    - vim
+    - curl
+    - git
+    - zsh
+    - chrome
+    - atom
