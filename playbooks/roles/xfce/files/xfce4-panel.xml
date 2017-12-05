@@ -57,6 +57,9 @@
         <value type="string" value="com.canonical.indicator.sound"/>
         <value type="string" value="com.canonical.indicator.messages"/>
       </property>
+      <property name="blacklist" type="array">
+        <value type="string" value="com.canonical.indicator.messages"/>
+      </property>
     </property>
     <property name="plugin-27" type="string" value="separator">
       <property name="style" type="uint" value="1"/>
