@@ -8,22 +8,23 @@
       <property name="position-locked" type="bool" value="true"/>
       <property name="length" type="uint" value="100"/>
       <property name="plugin-ids" type="array">
-        <value type="int" value="28"/>
+        <value type="int" value="30"/>
         <value type="int" value="9"/>
         <value type="int" value="14"/>
         <value type="int" value="15"/>
         <value type="int" value="18"/>
-        <value type="int" value="24"/>
         <value type="int" value="26"/>
-        <value type="int" value="23"/>
-        <value type="int" value="16"/>
         <value type="int" value="27"/>
+        <value type="int" value="24"/>
+        <value type="int" value="16"/>
+        <value type="int" value="29"/>
       </property>
       <property name="background-alpha" type="uint" value="100"/>
       <property name="enter-opacity" type="uint" value="100"/>
       <property name="leave-opacity" type="uint" value="100"/>
-      <property name="size" type="uint" value="38"/>
+      <property name="size" type="uint" value="34"/>
       <property name="nrows" type="uint" value="1"/>
+      <property name="disable-struts" type="bool" value="true"/>
     </property>
   </property>
   <property name="plugins" type="empty">
@@ -34,17 +35,21 @@
       <property name="show-button-title" type="bool" value="true"/>
       <property name="button-icon" type="string" value="distributor-logo"/>
     </property>
-    <property name="plugin-14" type="string" value="separator"/>
+    <property name="plugin-14" type="string" value="separator">
+      <property name="style" type="uint" value="1"/>
+    </property>
     <property name="plugin-15" type="string" value="tasklist">
       <property name="flat-buttons" type="bool" value="true"/>
-      <property name="show-handle" type="bool" value="true"/>
+      <property name="show-handle" type="bool" value="false"/>
       <property name="show-labels" type="bool" value="true"/>
+      <property name="switch-workspace-on-unminimize" type="bool" value="true"/>
+      <property name="sort-order" type="uint" value="1"/>
     </property>
     <property name="plugin-16" type="string" value="xfce4-orageclock-plugin"/>
     <property name="plugin-18" type="string" value="separator">
       <property name="expand" type="bool" value="true"/>
+      <property name="style" type="uint" value="1"/>
     </property>
-    <property name="plugin-23" type="string" value="separator"/>
     <property name="plugin-24" type="string" value="power-manager-plugin"/>
     <property name="plugin-26" type="string" value="indicator">
       <property name="known-indicators" type="array">
@@ -53,8 +58,13 @@
         <value type="string" value="com.canonical.indicator.messages"/>
       </property>
     </property>
-    <property name="plugin-27" type="string" value="separator"/>
-    <property name="plugin-28" type="string" value="separator"/>
+    <property name="plugin-27" type="string" value="separator">
+      <property name="style" type="uint" value="1"/>
+    </property>
+    <property name="plugin-29" type="string" value="separator"/>
+    <property name="plugin-30" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+    </property>
   </property>
   <property name="configver" type="int" value="2"/>
 </channel>
