@@ -9,7 +9,7 @@
       <property name="length" type="uint" value="100"/>
       <property name="plugin-ids" type="array">
         <value type="int" value="30"/>
-        <value type="int" value="9"/>
+        <value type="int" value="1"/>
         <value type="int" value="14"/>
         <value type="int" value="15"/>
         <value type="int" value="18"/>
@@ -25,16 +25,10 @@
       <property name="size" type="uint" value="34"/>
       <property name="nrows" type="uint" value="1"/>
       <property name="disable-struts" type="bool" value="false"/>
+      <property name="mode" type="uint" value="0"/>
     </property>
   </property>
   <property name="plugins" type="empty">
-    <property name="plugin-9" type="string" value="applicationsmenu">
-      <property name="show-generic-names" type="bool" value="false"/>
-      <property name="show-menu-icons" type="bool" value="true"/>
-      <property name="show-tooltips" type="bool" value="false"/>
-      <property name="show-button-title" type="bool" value="true"/>
-      <property name="button-icon" type="string" value="distributor-logo"/>
-    </property>
     <property name="plugin-14" type="string" value="separator">
       <property name="style" type="uint" value="1"/>
     </property>
@@ -68,6 +62,7 @@
     <property name="plugin-30" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
+    <property name="plugin-1" type="string" value="whiskermenu"/>
   </property>
   <property name="configver" type="int" value="2"/>
 </channel>
