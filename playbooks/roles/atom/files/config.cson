@@ -4,7 +4,6 @@
       "fonts"
     ]
     excludeVcsIgnoredPaths: false
-    fileEncoding: "windows1252"
     ignoredNames: [
       ".git"
       ".hg"
@@ -25,7 +24,7 @@
   docblockr:
     short_primitives: true
   editor:
-    fontSize: 13
+    fontSize: 16
     invisibles:
       cr: " "
       eol: " "
@@ -50,6 +49,7 @@
     showPanel: true
   "markdown-preview":
     useGitHubStyle: true
+  "one-dark-ui": {}
   "pristine-ui":
     hideDockButtons: true
     tabSizing: "Minimum"

@@ -1,3 +1,15 @@
+- name: Add Paper icons repository
+  apt_repository: repo='ppa:snwh/pulp'
+
+- name: Install Paper icons
+  apt: pkg=paper-icon-theme state=installed
+
+- name: Add Numix icons repository
+  apt_repository: repo='ppa:numix/ppa'
+
+- name: Install Numix icons
+  apt: pkg=numix-icon-theme-circle state=installed
+
 - name: Remove Xfce configuration files
   file:
     path: "{{ xfce_configuration_path }}"
@@ -9,7 +21,7 @@
     dest: "{{ xfce_configuration_path }}"
     state: link
 
-- name: Remove Xfce configuration files
+- name: Remove Xfce greeter files
   file:
     path: "/etc/lightdm/lightdm-gtk-greeter.conf"
     state: absent

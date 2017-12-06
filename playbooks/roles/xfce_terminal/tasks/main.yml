@@ -3,11 +3,11 @@
 
 - name: Remove terminalrc configuration
   file:
-    path: "{{ ansible_env.HOME }}/.config/xfce4/terminal/terminalrc"
+    path: "{{ ansible_env.HOME }}/.config/xfce4/terminal"
     state: absent
 
 - name: Symlink terminalrc configuration
   file:
-    src: "{{ role_path }}/files/terminalrc"
-    dest: "{{ ansible_env.HOME }}/.config/xfce4/terminal/terminalrc"
+    src: "{{ role_path }}/files/"
+    dest: "{{ ansible_env.HOME }}/.config/xfce4/terminal"
     state: link

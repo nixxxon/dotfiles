@@ -8,16 +8,14 @@
       <property name="position-locked" type="bool" value="true"/>
       <property name="length" type="uint" value="100"/>
       <property name="plugin-ids" type="array">
-        <value type="int" value="30"/>
         <value type="int" value="1"/>
         <value type="int" value="14"/>
         <value type="int" value="15"/>
         <value type="int" value="18"/>
         <value type="int" value="26"/>
-        <value type="int" value="27"/>
         <value type="int" value="24"/>
         <value type="int" value="16"/>
-        <value type="int" value="29"/>
+        <value type="int" value="27"/>
       </property>
       <property name="background-alpha" type="uint" value="100"/>
       <property name="enter-opacity" type="uint" value="100"/>
@@ -54,13 +52,11 @@
       <property name="blacklist" type="array">
         <value type="string" value="com.canonical.indicator.messages"/>
       </property>
+      <property name="single-row" type="bool" value="false"/>
+      <property name="align-left" type="bool" value="false"/>
     </property>
     <property name="plugin-27" type="string" value="separator">
       <property name="style" type="uint" value="1"/>
-    </property>
-    <property name="plugin-29" type="string" value="separator"/>
-    <property name="plugin-30" type="string" value="separator">
-      <property name="style" type="uint" value="0"/>
     </property>
     <property name="plugin-1" type="string" value="whiskermenu"/>
   </property>
