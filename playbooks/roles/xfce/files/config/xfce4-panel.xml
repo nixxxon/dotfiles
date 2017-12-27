@@ -10,8 +10,9 @@
       <property name="plugin-ids" type="array">
         <value type="int" value="1"/>
         <value type="int" value="5"/>
+        <value type="int" value="3"/>
         <value type="int" value="4"/>
-        <value type="int" value="14"/>
+        <value type="int" value="8"/>
         <value type="int" value="15"/>
         <value type="int" value="18"/>
         <value type="int" value="26"/>
@@ -29,9 +30,6 @@
     </property>
   </property>
   <property name="plugins" type="empty">
-    <property name="plugin-14" type="string" value="separator">
-      <property name="style" type="uint" value="1"/>
-    </property>
     <property name="plugin-15" type="string" value="tasklist">
       <property name="flat-buttons" type="bool" value="true"/>
       <property name="show-handle" type="bool" value="false"/>
@@ -68,6 +66,15 @@
       <property name="items" type="array">
         <value type="string" value="15136235921.desktop"/>
       </property>
+    </property>
+    <property name="plugin-3" type="string" value="launcher">
+      <property name="items" type="array">
+        <value type="string" value="15143983362.desktop"/>
+      </property>
+    </property>
+    <property name="plugin-8" type="string" value="separator">
+      <property name="style" type="uint" value="0"/>
+      <property name="expand" type="bool" value="false"/>
     </property>
   </property>
   <property name="configver" type="int" value="2"/>
