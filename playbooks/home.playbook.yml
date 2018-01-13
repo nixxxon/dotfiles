@@ -5,6 +5,7 @@
     - vim
     - curl
     - git
+    - golang
     - zsh
     - chrome
     - atom
