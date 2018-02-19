@@ -1,0 +1,54 @@
+- name: Check if Docker has been installed
+  shell: "which docker"
+  args:
+    executable: /bin/bash
+  register: which_docker
+  ignore_errors: True
+
+- name: Install Docker
+  shell: "wget -qO- https://get.docker.com/ | sh"
+  when: which_docker.stdout == ""
+
+- name: Add user to Docker group
+  shell: "usermod -aG docker {{ lookup('env', 'USER') }}"
+  become: yes
+  when: which_docker.stdout == ""
+
+- name: Check if docker-compose has been installed
+  shell: "which docker-compose"
+  args:
+    executable: /bin/bash
+  register: which_docker_compose
+  ignore_errors: True
+
+- name: Fetch the latest docker-compose version
+  shell: 'git ls-remote https://github.com/docker/compose | grep refs/tags | grep -oP "[0-9]+\.[0-9][0-9]+\.[0-9]+$" | tail -n 1'
+  args:
+    executable: /bin/bash
+  register: docker_compose_version
+  ignore_errors: True
+  when: which_docker_compose.stdout == ""
+
+- name: Install docker-compose
+  shell: "sh -c 'curl -L https://github.com/docker/compose/releases/download/{{ docker_compose_version.stdout }}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose'"
+  args:
+    executable: /bin/bash
+  become: yes
+  ignore_errors: True
+  when: which_docker_compose.stdout == ""
+
+- name: Make docker-compose executable
+  shell: "chmod +x /usr/local/bin/docker-compose"
+  args:
+    executable: /bin/bash
+  become: yes
+  ignore_errors: True
+  when: which_docker_compose.stdout == ""
+
+- name: Install docker-compose auto completion
+  shell: "sh -c 'curl -L https://raw.githubusercontent.com/docker/compose/{{ docker_compose_version.stdout }}/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose'"
+  args:
+    executable: /bin/bash
+  become: yes
+  ignore_errors: True
+  when: which_docker_compose.stdout == ""
