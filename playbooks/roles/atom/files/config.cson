@@ -56,6 +56,8 @@
   "quick-highlight":
     countDisplayPosition: "Right"
   "toggle-quotes": {}
+  "tree-view":
+    hideVcsIgnoredFiles: true
   welcome:
     showOnStartup: false
   whitespace: {}
