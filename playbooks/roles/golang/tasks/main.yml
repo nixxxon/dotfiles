@@ -1,5 +1,11 @@
+- name: Check if Golang has been installed
+  stat:
+    path: /usr/local/go
+  register: file_details
+
 - name: Install Golang
   unarchive:
     src: https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz
     dest: /usr/local
     remote_src: yes
+  when: file_details.stat.exists == False
