@@ -1,0 +1,18 @@
+user]
+	name = Niclas Åberg
+	email = niclas.aberg@gmail.com
+	signingkey = 386223ED234C5472
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[push]
+	default = simple
+[includeIf "gitdir/i:~/work/lokalguiden/"]
+    path = ~/work/.gitconfig
+[includeIf "gitdir/i:~/work/easypark/"]
+    path = ~/work/easypark/.gitconfig
+[includeIf "gitdir/i:~/work/struqtur/"]
+    path = ~/work/struqtur/.gitconfig
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg2
