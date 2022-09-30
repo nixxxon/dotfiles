@@ -41,32 +41,32 @@ sudo pacman --noconfirm -S \
   zsh \
   zsh-completions \
   zsh-autosuggestions \
-	yay \
-	dnsutils \
-	traceroute \
-	nvidia \
-	bumblebee \
-	powertop \
-	polybar \
-	base-devel \
-	libcurl-compat \
-	docker \
-	docker-compose \
-	aws-cli \
-	keybase-gui \
-	xclip \
-	dunst
+  yay \
+  dnsutils \
+  traceroute \
+  nvidia \
+  bumblebee \
+  powertop \
+  polybar \
+  base-devel \
+  libcurl-compat \
+  docker \
+  docker-compose \
+  aws-cli \
+  keybase-gui \
+  xclip \
+  dunst
 
 log "Installing packages from the AUR"
 yay --noconfirm -S \
-	slack-desktop \
-	google-chrome \
-	awless
+  slack-desktop \
+  google-chrome \
+  awless
 
 log "Installing terraform from hashicorp"
 wget -q https://releases.hashicorp.com/terraform/0.9.8/terraform_0.9.8_linux_amd64.zip -P /tmp \
-	&& unzip -o /tmp/terraform_0.9.8_linux_amd64.zip -d /tmp \
-	&& sudo mv /tmp/terraform /usr/local/bin/terraform
+  && unzip -o /tmp/terraform_0.9.8_linux_amd64.zip -d /tmp \
+  && sudo mv /tmp/terraform /usr/local/bin/terraform
 
 log "Installing aws-vault from hashicorp"
 sudo curl -Lo /usr/local/bin/aws-vault https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-linux-amd64
