@@ -15,6 +15,7 @@ ln -sf $HOME/.dotfiles/.gitconfig $HOME
 echo "Done"
 
 echo "Setting up ssh"
+eval `ssh-agent -s`
 ssh-add
 echo "Done"
 
