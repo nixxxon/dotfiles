@@ -2,19 +2,27 @@
 
 set -e
 
+DOTFILES_PATH=$HOME/.dotfiles
+
 echo "Installing git"
 sudo pacman --noconfirm -S git
 echo "Done"
 
-echo ""
-echo "===================================================="
-echo ""
+if [ -d $DOTFILES_PATH ]
+then
+    cd $DOTFILES_PATH
+else
+  echo ""
+  echo "===================================================="
+  echo ""
 
-echo "Cloning dotfiles from github"
-git clone https://github.com/nixxxon/dotfiles.git $HOME/.dotfiles
-cd $HOME/.dotfiles
-git remote set-url origin git@github.com:nixxxon/dotfiles.git
-echo "Done"
+  echo "Cloning dotfiles from github"
+
+  git clone https://github.com/nixxxon/dotfiles.git $DOTFILES_PATH
+  cd $DOTFILES_PATH
+  git remote set-url origin git@github.com:nixxxon/dotfiles.git
+  echo "Done"
+fi
 
 echo ""
 echo "===================================================="
