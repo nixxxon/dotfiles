@@ -28,25 +28,6 @@ echo ""
 echo "===================================================="
 echo ""
 
-echo "Setting up ssh"
-eval `ssh-agent -s`
-ssh-add
-echo "Done"
-
-echo ""
-echo "===================================================="
-echo ""
-
-echo "Setting up permissions"
-chmod 700 ~/.ssh
-chmod 644 ~/.ssh/*
-chmod 600 ~/.ssh/id_rsa
-echo "Done"
-
-echo ""
-echo "===================================================="
-echo ""
-
 echo "Installing packages from the official repositories"
 sudo pacman -Syu && sudo pacman --noconfirm -S \
   dmenu \
