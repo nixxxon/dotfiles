@@ -5,7 +5,9 @@ sudo pacman --noconfirm -S git
 echo "Done"
 
 echo "Cloning dotfiles from github"
-git clone git@github.com:nixxxon/dotfiles.git $HOME/.dotfiles
+git clone https://github.com/nixxxon/dotfiles.git $HOME/.dotfiles
+cd $HOME/.dotfiles
+git remote set-url origin git@github.com:nixxxon/dotfiles.git
 echo "Done"
 
 echo "Setting up git"
