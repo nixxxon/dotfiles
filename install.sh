@@ -37,7 +37,7 @@ sudo pacman --noconfirm -S \
   dmenu \
   i3lock \
   xautolock \
-  nvim \
+  neovim \
   zsh \
   zsh-completions \
   zsh-autosuggestions \
