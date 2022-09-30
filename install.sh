@@ -37,7 +37,7 @@ echo "===================================================="
 echo ""
 
 echo "Installing packages from the official repositories"
-sudo pacman -Syu && sudo pacman --noconfirm -S \
+sudo pacman --noconfirm -Syu && sudo pacman --noconfirm -S \
   dmenu \
   i3lock \
   xautolock \
