@@ -1,0 +1,12 @@
+ # Font configuration
+font:
+  # Point size
+  size: 10.0
+
+window:
+  padding:
+    x: 10 
+    y: 10 
+
+scrolling:
+  history: 10000

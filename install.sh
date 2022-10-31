@@ -40,6 +40,7 @@ sudo pacman --noconfirm -S \
   neovim \
   zsh \
   zsh-completions \
+  alacritty \
   yay \
   dnsutils \
   traceroute \
@@ -81,10 +82,9 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 
-
 log "Setting up i3"
 ln -sf $HOME/.dotfiles/.config/i3/config $HOME/.config/i3/config
-ln -sf $HOME/.dotfiles/.config/picom.conf $HOME/.config
+ln -sf $HOME/.dotfiles/.config/picom.conf $HOME/.config/picom.conf
 
 log "Setting up the shell"
 sudo chsh -s $(which zsh) $USER
@@ -92,6 +92,9 @@ curl -L http://install.ohmyz.sh | sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ln -sf $HOME/.dotfiles/.p10k.zsh $HOME
 ln -sf $HOME/.dotfiles/zsh/* $HOME
+
+log "Setting up terminal"
+ln -sf $HOME/.dotfiles/.config/alacritty/* $HOME/.config/alacritty/
 
 log "Setting up neovim"
 mkdir -p $HOME/.config/nvim
