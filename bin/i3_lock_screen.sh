@@ -1,4 +1,9 @@
 #!/bin/bash
+dunst set-paused true
+i3lock -c 000000
+dunst set-paused false 
+exit
+
 if [[ $(pactl list | grep RUNNING) ]]; then
   exit
 fi

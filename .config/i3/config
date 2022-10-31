@@ -8,6 +8,8 @@ exec --no-startup-id nm-applet
 
 exec --no-startup-id picom
 exec_always --no-startup-id hsetroot -solid "#000000"
+exec_always --no-startup-id autorandr --change 
+exec_always --no-startup-id nitrogen --restore
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -26,7 +28,7 @@ bindsym XF86AudioPrev exec playerctl previous
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+t exec st
+bindsym $mod+t exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -154,30 +156,31 @@ bindsym $mod+r mode "resize"
 
 exec_always --no-startup-id kbd-mouse-setup
 
-bindsym $mod+b exec --no-startup-id sensible-browser
 bindsym $mod+n exec --no-startup-id dunstctl is-paused | grep false && notify-send -t 1000 'Notifications disabled' && sleep 1 && dunstctl set-paused true || dunstctl set-paused false && notify-send -t 1000 'Notifications enabled'
 
 # i3 window colors
-client.focused #222222 #222222 #ffffff #222222 #222222
+client.focused #222222 #222222 #ffffff #222222 #ffefb5 
 client.focused_inactive #111111 #111111 #999999 #111111 #111111
 client.unfocused #111111 #111111 #444444 #111111 #111111
 client.urgent #222222 #222222 #ff7777 #222222 #222222
 client.background #000000
 
+# hide window
+default_border pixel 1 
+default_floating_border pixel 1 
+for_window [class="^.*"] border pixel 1
+
 # enable monitor brightness keys (requires light)
 bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
 
-exec_always --no-startup-id polybar_launcher.sh
-
-bar {
-	mode hide
-	i3bar_command i3bar
-}
+exec_always --no-startup-id ~/bin/polybar_launcher.sh
 
 for_window [class="Org.gnome.Nautilus"] floating enable, resize set 1200 900, move absolute position center
 
-gaps inner 12
-bindsym Control+space exec --no-startup-id notify-send -t 1000 -i keyboard "KBD: $(toggle_keyboard_layout.sh)"
-bindsym Control+$mod+L --release exec i3lock -locker 'i3_lock_screen.sh'
-exec --no-startup-id xautolock -time 2 -locker 'i3_lock_screen.sh' -notify 15 -notifier "pactl list | grep RUNNING || notify-send 'Screen will lock in 15s'" -detectsleep -killtime 10 -killer "systemctl suspend"
+gaps inner 24
+bindsym $mod+Shift+P --release exec "scrot -s -f -e 'mv $f /tmp && xclip -selection clipboard -t image/png -i /tmp/$n'"
+bindsym $mod+d exec dmenu_run
+bindsym $mod+b exec google-chrome-stable
+bindsym Control+space exec --no-startup-id notify-send -t 1000 -i keyboard "KBD: $(~/bin/toggle_keyboard_layout.sh)"
+bindsym Control+$mod+L --release exec "~/bin/i3_lock_screen.sh"exec --no-startup-id xautolock -time 2 -locker '~/bin/i3_lock_screen.sh' -notify 15 -notifier "pactl list | grep RUNNING || notify-send 'Screen will lock in 15s'" -detectsleep -killtime 10 -killer "systemctl suspend"

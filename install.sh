@@ -40,7 +40,6 @@ sudo pacman --noconfirm -S \
   neovim \
   zsh \
   zsh-completions \
-  zsh-autosuggestions \
   yay \
   dnsutils \
   traceroute \
@@ -55,12 +54,17 @@ sudo pacman --noconfirm -S \
   aws-cli \
   keybase-gui \
   xclip \
+  nitrogen \
+  bat \
+  ripgrep \
   dunst
 
 log "Installing packages from the AUR"
 yay --noconfirm -S \
   slack-desktop \
   google-chrome \
+  xcursor-dmz \
+  yaru-gtk-theme \
   awless
 
 log "Installing terraform from hashicorp"
@@ -72,9 +76,15 @@ log "Installing aws-vault from hashicorp"
 sudo curl -Lo /usr/local/bin/aws-vault https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-linux-amd64
 sudo chmod 755 /usr/local/bin/aws-vault
 
+log "Installing zsh plugins"
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+
+
 log "Setting up i3"
-ln -sf $HOME/.dotfiles/i3config $HOME/.config/i3/config
-ln -sf $HOME/.dotfiles/picom.conf $HOME/.config
+ln -sf $HOME/.dotfiles/.config/i3/config $HOME/.config/i3/config
+ln -sf $HOME/.dotfiles/.config/picom.conf $HOME/.config
 
 log "Setting up the shell"
 sudo chsh -s $(which zsh) $USER
@@ -85,7 +95,10 @@ ln -sf $HOME/.dotfiles/zsh/* $HOME
 
 log "Setting up neovim"
 mkdir -p $HOME/.config/nvim
-ln -sf $HOME/.dotfiles/nvim/* $HOME/.config/nvim/
+ln -sf $HOME/.dotfiles/.config/nvim/* $HOME/.config/nvim/
+
+log "Setting up polybar"
+ln -sf $HOME/.dotfiles/.config/polybar/* $HOME/.config/polybar/
 
 log "Setting up docker"
 sudo usermod -a -G docker $USER
@@ -93,14 +106,13 @@ sudo systemctl enable docker
 sudo systemctl start docker
 
 log "Setting up gtk"
-ln -sf $HOME/.dotfiles/gtk-3.0-settings.conf $HOME/.config/gtk-3.0/settings.ini
+ln -sf $HOME/.dotfiles/.config/gtk-3.0-settings.ini $HOME/.config/gtk-3.0/settings.ini
 
 log "Setting up xresources"
 ln -sf $HOME/.dotfiles/.Xresources $HOME/.Xresources
 
 log "Setting up xorg keyboard config"
 sudo ln -sf $HOME/.dotfiles/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
-ln -sf $HOME/.dotfiles/.Xresources $HOME/.Xresources
 
 log "Setting up home/bin"
 mkdir -p $HOME/bin

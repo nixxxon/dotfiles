@@ -70,9 +70,22 @@ nnoremap <Leader>tt :tab split<CR>
 nnoremap <Leader>gcc :Commits<CR>
 nnoremap <Leader>gcf :BCommits<CR>
 
+" Disable Arrow keys in Normal mode
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Disable Arrow keys in Insert mode
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
 set statusline=\ %{pathshorten(expand('%:f'))}
 set statusline+=\ %(\[%{FugitiveHead()}]%)
 set statusline+=\ %m%r%y%w%=C:\%c\ L:\%l\/\%L\ 
 
 autocmd BufWritePre /**/struqtur*/**/*.php :Format
 
+set clipboard=unnamedplus

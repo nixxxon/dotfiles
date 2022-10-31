@@ -11,7 +11,7 @@ alias dex="docker_exec.sh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-plugins=(git zsh-autosuggestions ssh-agent)
+plugins=(git zsh-autosuggestions ssh-agent zsh-autocompletions)
 
 source $ZSH/oh-my-zsh.sh
 
