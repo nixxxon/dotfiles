@@ -79,4 +79,4 @@ menu_result="$?"
 
 echo
 
-docker exec -it ${docker_containers_ids[$menu_result]} bash
+docker exec -it ${docker_containers_ids[$menu_result]} sh
