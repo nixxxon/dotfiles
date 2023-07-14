@@ -83,8 +83,11 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 
 log "Setting up i3"
-ln -sf $HOME/.dotfiles/.config/i3/config $HOME/.config/i3/config
-ln -sf $HOME/.dotfiles/.config/picom.conf $HOME/.config/picom.conf
+mkdir -p $HOME/.config/i3
+ln -sf $HOME/.dotfiles/.config/i3/* $HOME/.config/i3/
+mkdir -p $HOME/.config/picom
+ln -sf $HOME/.dotfiles/.config/picom/picom.conf $HOME/.config/picom/picom.conf
+
 
 log "Setting up the shell"
 sudo chsh -s $(which zsh) $USER
@@ -94,6 +97,7 @@ ln -sf $HOME/.dotfiles/.p10k.zsh $HOME
 ln -sf $HOME/.dotfiles/zsh/* $HOME
 
 log "Setting up terminal"
+mkdir -p $HOME/.config/alacritty
 ln -sf $HOME/.dotfiles/.config/alacritty/* $HOME/.config/alacritty/
 
 log "Setting up neovim"
@@ -101,6 +105,7 @@ mkdir -p $HOME/.config/nvim
 ln -sf $HOME/.dotfiles/.config/nvim/* $HOME/.config/nvim/
 
 log "Setting up polybar"
+mmkdir -p $HOME/.config/polybar
 ln -sf $HOME/.dotfiles/.config/polybar/* $HOME/.config/polybar/
 
 log "Setting up docker"
