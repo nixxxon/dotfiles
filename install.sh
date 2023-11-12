@@ -2,107 +2,169 @@
 
 set -e
 
-DOTFILES_PATH=$HOME/.dotfiles
-CONFIG_PATH=$HOME/.config
+dotfiles_path="$HOME"/.dotfiles
+config_path="$HOME"/.config
 
 log ()
 {
-  echo ""
-  echo "===================================================="
-  echo ""
   echo "$1"
+}
+
+line ()
+{
   echo ""
   echo "===================================================="
   echo ""
 }
 
-log "Installing git"
-sudo pacman --noconfirm -S git
+ask ()
+{
+  read -p "$1 " -n 1 -r
+  echo ""
+}
 
-if [ -d $DOTFILES_PATH ]
+ask "Install Git (y/n)?"
+if [[ ! $REPLY =~ ^[Nn]$ ]]
 then
-    cd $DOTFILES_PATH
-else
-  log "Cloning dotfiles from github"
-  git clone https://github.com/nixxxon/dotfiles.git $DOTFILES_PATH
-  cd $DOTFILES_PATH
-  git remote set-url origin git@github.com:nixxxon/dotfiles.git
+  line
+  log "Installing git"
+  sudo pacman --noconfirm -S git
+  line
 fi
 
-log "Setting up git"
-ln -sf $DOTFILES_PATH/.gitconfig $HOME/
+if [ -d "$dotfiles_path" ]
+then
+    cd "$dotfiles_path"
+else
+  line
+  log "Cloning dotfiles from github"
+  git clone https://github.com/nixxxon/dotfiles.git "$dotfiles_path"
+  cd "$dotfiles_path"
+  git remote set-url origin git@github.com:nixxxon/dotfiles.git
+  line
+fi
 
-log "Installing packages from the official repository"
-sudo pacman --noconfirm -Syu
-sudo pacman --noconfirm -S \
-  dmenu \
-  i3lock \
-  xautolock \
-  neovim \
-  zsh \
-  zsh-completions \
-  alacritty \
-  yay \
-  dnsutils \
-  traceroute \
-  nvidia \
-  bumblebee \
-  powertop \
-  polybar \
-  base-devel \
-  libcurl-compat \
-  docker \
-  docker-compose \
-  aws-cli \
-  keybase-gui \
-  xclip \
-  nitrogen \
-  bat \
-  ripgrep \
-  dunst \
-  autorandr
+ask "Setup Git (y/n)?"
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+  line
+  log "Setting up git"
+  ln -sf "$dotfiles_path"/.gitconfig "$HOME"/
+  line
+fi
 
-log "Installing packages from the user repository"
-yay --noconfirm -S \
-  slack-desktop \
-  google-chrome \
-  xcursor-dmz \
-  yaru-gtk-theme \
-  awless
+ask "Install packages from the official repository (y/n)?"
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+  line
+  log "Installing packages from the official repository"
+  sudo pacman --noconfirm -Syu
+  sudo pacman --noconfirm -S \
+    dmenu \
+    i3lock \
+    xautolock \
+    neovim \
+    zsh \
+    zsh-completions \
+    alacritty \
+    yay \
+    dnsutils \
+    traceroute \
+    nvidia \
+    bumblebee \
+    powertop \
+    polybar \
+    base-devel \
+    libcurl-compat \
+    docker \
+    docker-compose \
+    aws-cli \
+    keybase-gui \
+    xclip \
+    nitrogen \
+    bat \
+    ripgrep \
+    dunst \
+    autorandr
+  line
+fi
 
-log "Installing zsh plugins"
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+ask "Install packages from the user repository (y/n)?"
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+  line
+  log "Installing packages from the user repository"
+  yay --noconfirm -S \
+    slack-desktop \
+    google-chrome \
+    xcursor-dmz \
+    yaru-gtk-theme \
+    awless
+  line
+fi
 
-log "Setting up docker"
-sudo usermod -a -G docker $USER
-sudo systemctl enable docker
-sudo systemctl start docker
+ask "Setup Zsh (y/n)?"
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+  line
+  log "Setting up Zsh"
+  sudo chsh -s "$(which zsh)" "$USER"
+  curl -L http://install.ohmyz.sh | sh
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+  ln -sf "$dotfiles_path"/.p10k.zsh "$HOME"/
+  ln -sf "$dotfiles_path"/zsh/* "$HOME"/
 
-log "Setting up the shell"
-sudo chsh -s $(which zsh) $USER
-curl -L http://install.ohmyz.sh | sh
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-ln -sf $DOTFILES_PATH/.p10k.zsh $HOME
-ln -sf $DOTFILES_PATH/zsh/* $HOME
+  log "Installing zsh plugins"
+  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+  git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+  line
+fi
 
-log "Setting up .config"
-ln -sf $DOTFILES_PATH/.config/* $CONFIG_PATH/
+ask "Setup Docker (y/n)?"
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+  line
+  log "Setting up Docker"
+  sudo usermod -a -G docker "$USER"
+  sudo systemctl enable docker
+  sudo systemctl start docker
+  line
+fi
 
-log "Setting up neovim"
-rm -rf $CONFIG_PATH/nvim
-git clone --depth 1 https://github.com/AstroNvim/AstroNvim $CONFIG_PATH/nvim
-ln -sf $DOTFILES_PATH/nvim/lua/user $CONFIG_PATH/nvim/lua/
+ask "Setup config (y/n)?"
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+  line
+  log "Setting up .config"
+  for dotfiles_config_path in "$dotfiles_path"/.config/*; do
+    real_config_path="$config_path"/$(basename "$dotfiles_config_path")
+    rm -rf "$real_config_path"
+    ln -sf "$dotfiles_config_path" "$real_config_path"
+  done
 
-log "Setting up xresources"
-ln -sf $DOTFILES_PATH/.Xresources $HOME/.Xresources
+  log "Setting up Neovim"
+  rm -rf "$config_path"/nvim
+  git clone --depth 1 https://github.com/AstroNvim/AstroNvim "$config_path"/nvim
+  ln -sf "$dotfiles_path"/.config/nvim "$config_path"/nvim/lua/user
 
-log "Setting up xorg keyboard config"
-sudo ln -sf $DOTFILES_PATH/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+  log "Setting up Xresources"
+  ln -sf "$dotfiles_path"/.Xresources "$HOME"/.Xresources
 
-log "Setting up home/bin"
-ln -sf $DOTFILES_PATH/bin $HOME/
-chmod +x $HOME/bin/*
+  log "Setting up Xorg keyboard config" 
+  sudo ln -sf "$dotfiles_path"/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
+  line
+fi
 
-log -e "\nAll done! Log out and log in again.\n"
+ask "Setup home/bin (y/n)?"
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+  line
+  log "Setting up home/bin"
+  ln -sf "$dotfiles_path"/bin "$HOME"/
+  chmod +x "$HOME"/bin/*
+  line
+fi
+
+log ""
+log "All done! Log out and log in again."
