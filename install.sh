@@ -123,15 +123,21 @@ then
   line
   log "Setting up Zsh"
   chsh -s "$(which zsh)"
+
+  log "Installing oh-my-zsh"
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   log "Installing Zsh themes"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+  themes_path="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes
+  rm -rf "${themes_path:?}"/*
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$themes_path"/powerlevel10k
 
   log "Installing Zsh plugins"
-  git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME"/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-  git clone https://github.com/zsh-users/zsh-completions "$HOME"/.oh-my-zsh/custom/plugins/zsh-completions
+  plugins_path="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/plugins
+  rm -rf "${plugins_path:?}"/*
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$plugins_path"/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$plugins_path"/zsh-syntax-highlighting
+  git clone https://github.com/zsh-users/zsh-completions "$plugins_path"/zsh-completions
   line
 fi
 
@@ -162,6 +168,7 @@ then
   ln -sf "$dotfiles_path"/.config/nvim "$config_path"/nvim/lua/user
 
   log "Setting up Xorg keyboard config" 
+  sudo rm -rf /etc/X11/xorg.conf.d/00-keyboard.conf
   sudo ln -sf "$dotfiles_path"/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
   line
 fi
