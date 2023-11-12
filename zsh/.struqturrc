@@ -1,7 +1,0 @@
-export PHP_CS_FIXER_IGNORE_ENV=1
-export GITHUB_TOKEN=""
-export SLACK_TOKEN=""
-export PATH="$PATH:$HOME/work/struqtur/tools/bin"
-
-alias as="aws-vault exec struqtur --"
-alias asw="aws-vault exec wstruqtur --"

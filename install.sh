@@ -4,6 +4,9 @@ set -e
 
 dotfiles_path="$HOME"/.dotfiles
 config_path="$HOME"/.config
+bin_path="${HOME:?}"/bin
+
+shopt -s dotglob
 
 log ()
 {
@@ -21,6 +24,18 @@ ask ()
 {
   read -p "$1 " -n 1 -r
   echo ""
+}
+
+symlink_files ()
+{
+  source_path=$1
+  target_path=$2
+  
+  for source_file_path in "$source_path"/*; do
+    target_file_path="$target_path"/$(basename "$source_file_path")
+    rm -rf "$target_file_path"
+    ln -sf "$source_file_path" "$target_file_path"
+  done
 }
 
 ask "Install Git (y/n)?"
@@ -48,8 +63,6 @@ ask "Setup Git (y/n)?"
 if [[ ! $REPLY =~ ^[Nn]$ ]]
 then
   line
-  log "Setting up git"
-  ln -sf "$dotfiles_path"/.gitconfig "$HOME"/
   line
 fi
 
@@ -99,7 +112,8 @@ then
     google-chrome \
     xcursor-dmz \
     yaru-gtk-theme \
-    awless
+    awless \
+    1password
   line
 fi
 
@@ -108,16 +122,16 @@ if [[ ! $REPLY =~ ^[Nn]$ ]]
 then
   line
   log "Setting up Zsh"
-  sudo chsh -s "$(which zsh)" "$USER"
-  curl -L http://install.ohmyz.sh | sh
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
-  ln -sf "$dotfiles_path"/.p10k.zsh "$HOME"/
-  ln -sf "$dotfiles_path"/zsh/* "$HOME"/
+  chsh -s "$(which zsh)"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-  log "Installing zsh plugins"
-  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-  git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+  log "Installing Zsh themes"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+
+  log "Installing Zsh plugins"
+  git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME"/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME"/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+  git clone https://github.com/zsh-users/zsh-completions "$HOME"/.oh-my-zsh/custom/plugins/zsh-completions
   line
 fi
 
@@ -137,19 +151,15 @@ if [[ ! $REPLY =~ ^[Nn]$ ]]
 then
   line
   log "Setting up .config"
-  for dotfiles_config_path in "$dotfiles_path"/.config/*; do
-    real_config_path="$config_path"/$(basename "$dotfiles_config_path")
-    rm -rf "$real_config_path"
-    ln -sf "$dotfiles_config_path" "$real_config_path"
-  done
+  symlink_files "$dotfiles_path"/.config "$config_path"
+
+  log "Setting up home"
+  symlink_files "$dotfiles_path"/home "$HOME"
 
   log "Setting up Neovim"
   rm -rf "$config_path"/nvim
   git clone --depth 1 https://github.com/AstroNvim/AstroNvim "$config_path"/nvim
   ln -sf "$dotfiles_path"/.config/nvim "$config_path"/nvim/lua/user
-
-  log "Setting up Xresources"
-  ln -sf "$dotfiles_path"/.Xresources "$HOME"/.Xresources
 
   log "Setting up Xorg keyboard config" 
   sudo ln -sf "$dotfiles_path"/00-keyboard.conf /etc/X11/xorg.conf.d/00-keyboard.conf
@@ -161,10 +171,12 @@ if [[ ! $REPLY =~ ^[Nn]$ ]]
 then
   line
   log "Setting up home/bin"
-  ln -sf "$dotfiles_path"/bin "$HOME"/
-  chmod +x "$HOME"/bin/*
+  rm -rf "$bin_path"
+  ln -sf  "$dotfiles_path"/bin "$bin_path"
+  chmod +x "$bin_path"/*
   line
 fi
 
 log ""
 log "All done! Log out and log in again."
+log ""
