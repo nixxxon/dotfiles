@@ -58,7 +58,9 @@ sudo pacman --noconfirm -S \
   nitrogen \
   bat \
   ripgrep \
-  dunst
+  dunst \
+  autorandr
+
 
 log "Installing packages from the AUR"
 yay --noconfirm -S \
